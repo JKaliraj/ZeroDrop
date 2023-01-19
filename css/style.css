@@ -138,14 +138,14 @@ body.dark {
     left: 20px;
     transition: all 0.5s ease-in-out;
     cursor: pointer;
-    width: 30px;
-    height: 30px;
+    width: 35px;
+    height: 35px;
     padding: 5px;
     border-radius: 50%;
 }
 
 .homeBtn:hover {
-    transform: scale(0.8);
+    transform: scale(1.2);
 }
 
 /* Theme */
@@ -165,13 +165,7 @@ body.dark {
 }
 
 .currentThemeIcon {
-    font-size: 28px;
-    color: var(--dark);
     transition: all 0.3s ease-in-out;
-}
-
-.currentThemeIcon.dark {
-    color: var(--light);
 }
 
 .currentThemeIcon:hover {
@@ -188,7 +182,10 @@ body.dark {
     gap: 20px;
     transition: all .3s ease-in-out;
 }
-
+.sendBtn > img , .receiveBtn > img{
+    width: 22px;
+    height: 22px;
+}
 .btn {
     border-radius: 15px;
     padding: 15px;
@@ -196,7 +193,7 @@ body.dark {
     border: none;
     color: #757575;
     font-weight: bold;
-    width: 130px !important;
+    width: 140px !important;
     height: 45px;
     outline: none;
     cursor: pointer;
@@ -259,8 +256,9 @@ body.dark {
     transform: scale(0.9);
 }
 
-.browseBtn span {
-    font-size: 18px;
+.browseBtn img {
+    width: 18px;
+    height: 18px;
 }
 
 .drag-area.dark {
@@ -274,10 +272,6 @@ body.dark {
 
 .drag-area.dark header {
     color: var(--light);
-}
-
-.drag-area.dark .browseBtn {
-    color: #b6b6b6;
 }
 
 .files {
@@ -306,7 +300,7 @@ body.dark {
     gap: 5px;
     z-index: 99;
     backdrop-filter: blur(5px);
-    padding: 10px;
+    padding: 30px 10px 10px 10px;
 }
 
 .drag-area.active {
@@ -635,7 +629,8 @@ section .row .material-symbols-rounded {
     border-radius: 10px;
     display: none;
     width: 350px;
-    height: fit-content;
+    max-height: 450px;
+    overflow-y:scroll;
     background: var(--light);
     box-shadow: -2px -2px 6px rgba(255, 255, 255, .6),
         -2px -2px 4px rgba(255, 255, 255, .4),
@@ -644,7 +639,9 @@ section .row .material-symbols-rounded {
     padding: 20px 10px;
     transition: all 300ms ease-out;
 }
-
+.downloadWindow::-webkit-scrollbar{
+    width: 0px;
+}
 .downloadWindow a {
     text-decoration: none;
 }
@@ -679,7 +676,12 @@ section .row .material-symbols-rounded {
 .files-area .row {
     transition: all 300ms ease-out;
 }
-
+.files-area .row img{
+    width: 22px;
+}
+.files-area .row .downloadFileIcon{ 
+    cursor: pointer;
+}
 .files-area .row .content {
     width: 100%;
     display: flex;
