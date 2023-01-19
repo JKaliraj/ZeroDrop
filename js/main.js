@@ -303,7 +303,9 @@ dropArea.addEventListener("drop", (event) => {
   dragText.textContent = "Drag & Drop to Upload File";
   if (dragfile) {
     for (var i = 0; i < dragfilelength; i++) {
-      uploadFile(dragfile[i]);
+      if (dragfile[i].type !== '') {
+        uploadFile(dragfile[i]);
+      }
     }
   }
 });
