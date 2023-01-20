@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zero Drop - Admin</title>
+    <link rel="shortcut icon" href="./assests/favicon.svg" type="image/x-icon">
+    <link rel="stylesheet" href="./css/admin.css">
+</head>
+
+<body>
+    <div class="main">
+        <div class="sidePanel">
+            <div class="sidePanelHeader">
+                <img src="./assests/favicon.svg">
+                <h2>Zero Drop</h2>
+            </div>
+            <div class="codes">
+            </div>
+        </div>
+        <div class="mainPanel">
+            <!-- <div class="welcome">
+                <img src="./assests/favicon.svg">
+            </div> -->
+
+            <div class="box">
+                <img src="./assests/file-text.svg">
+                <h2>Image File</h2>
+                <span>200MB</span>
+                <img class="downloadFileIcon" src="./assests/download-g.svg" onclick="downloadFile('as')">
+
+            </div>
+
+        </div>
+    </div>
+    
+    <script src="https://www.gstatic.com/firebasejs/8.4.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.4.2/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.4.2/firebase-storage.js"></script>
+    <script src="./js/config.js"></script>
+    <script src="./js/admin.js"></script>
+</body>
+
+</html>

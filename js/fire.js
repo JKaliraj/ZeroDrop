@@ -10,12 +10,13 @@ const firebaseConfig = {
     appId: "APP_ID",
     measurementId: "MEASUREMENT_ID"
 };
-*/
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 const storage  = firebase.storage();
+*/
+
 // remove older files >24hr
-db.ref("space").orderByChild('time').once('value', (snap) => {
+db.ref("space").once('value', (snap) => {
   var datas= snap.val();
   if(datas){
   const code = Object.keys(datas);

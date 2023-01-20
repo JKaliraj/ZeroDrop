@@ -164,7 +164,10 @@ uploadBtn.addEventListener("change", function (e) {
   var file = e.target.files;
   var filelength = e.target.files.length;
   for (var i = 0; i < filelength; i++) {
-    uploadFile(file[i]);
+    if (!fileNameList.includes(file[i].name)) {
+      uploadFile(file[i]);
+    }
+   
   }
 });
 
@@ -197,11 +200,15 @@ function uploadFile(file) {
       var date = cdate.getDate();
       var mon = cdate.getMonth() + 1;
       var year = cdate.getFullYear();
+      var hour = cdate.getHours();
+      var min = cdate.getMinutes();
       var today = date + "-" + mon + "-" + year;
+      var ctime = hour + ":" + min;
       setTimeout(() => {
         db.ref("space/" + myCode + "/").set({
           code: myCode,
           date: today,
+          time: ctime,
         });
         digitCode1.value = myCode.toString()[0];
         digitCode2.value = myCode.toString()[1];
@@ -300,7 +307,7 @@ dropArea.addEventListener("drop", (event) => {
   dragText.textContent = "Drag & Drop to Upload File";
   if (dragfile) {
     for (var i = 0; i < dragfilelength; i++) {
-      if (dragfile[i].type !== '') {
+      if (dragfile[i].type !== '' && !fileNameList.includes(dragfile[i].name)) {
         uploadFile(dragfile[i]);
       }
     }
