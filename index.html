@@ -42,35 +42,23 @@
         <div class="showCode">
             <h3>Share Your <span>Private Code</span> to Other to view and download uploaded files <span>Securely</span>
             </h3>
-            <div>
-                <input id="digitCode1" type="number" pattern="[0-9]*" value="" inputtype="numeric"
-                    autocomplete="one-time-code" readonly>
-                <input id="digitCode2" type="number" pattern="[0-9]*" min="0" max="9" maxlength="1" value=""
-                    inputtype="numeric" readonly>
-                <input id="digitCode3" type="number" pattern="[0-9]*" min="0" max="9" maxlength="1" value=""
-                    inputtype="numeric" readonly>
-                <input id="digitCode4" type="number" pattern="[0-9]*" min="0" max="9" maxlength="1" value=""
-                    inputtype="numeric" readonly>
+            <div class="input-field">
+                <input id="digitCode1" type="number" onKeyDown="if(this.value.length==1 && event.keyCode!=8) return false;"/>
+                <input id="digitCode2" type="number" disabled onKeyDown="if(this.value.length==1 && event.keyCode!=8) return false;"/>
+                <input id="digitCode3" type="number" disabled onKeyDown="if(this.value.length==1 && event.keyCode!=8) return false;"/>
+                <input id="digitCode4" type="number" disabled onKeyDown="if(this.value.length==1 && event.keyCode!=8) return false;"/>                         
             </div>
         </div>
         <div class="downloadWindow">
             <div class="receive">
-                <form class="otc" name="one-time-code" action="#">
+                <form class="otc" action="#">
                     <fieldset>
                         <h3>Enter 4 Digit Code</h3>
-                        <label for="otc-1">Number 1</label>
-                        <label for="otc-2">Number 2</label>
-                        <label for="otc-3">Number 3</label>
-                        <label for="otc-4">Number 4</label>
-                        <div>
-                            <input type="number" pattern="[0-9]*" value="" inputtype="numeric"
-                                autocomplete="one-time-code" id="otc-1" required>
-                            <input type="number" pattern="[0-9]*" min="0" max="9" maxlength="1" value=""
-                                inputtype="numeric" id="otc-2" required>
-                            <input type="number" pattern="[0-9]*" min="0" max="9" maxlength="1" value=""
-                                inputtype="numeric" id="otc-3" required>
-                            <input type="number" pattern="[0-9]*" min="0" max="9" maxlength="1" value=""
-                                inputtype="numeric" id="otc-4" required>
+                        <div class="input-field">                           
+                            <input class="downloadcode" type="number" onKeyDown="if(this.value.length==1 && event.keyCode!=8) return false;"/>
+                            <input class="downloadcode" type="number" disabled onKeyDown="if(this.value.length==1 && event.keyCode!=8) return false;"/>
+                            <input class="downloadcode" type="number" disabled onKeyDown="if(this.value.length==1 && event.keyCode!=8) return false;"/>
+                            <input class="downloadcode" type="number" disabled onKeyDown="if(this.value.length==1 && event.keyCode!=8) return false;"/>                         
                         </div>
                     </fieldset>
                 </form>

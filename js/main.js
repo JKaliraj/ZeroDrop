@@ -20,10 +20,7 @@ const main = document.querySelector("#main"),
   digitCode3 = showCode.querySelector("#digitCode3"),
   digitCode4 = showCode.querySelector("#digitCode4"),
   filesDiv = main.querySelector(".files"),
-  codeNum1 = main.querySelector("#otc-1"),
-  codeNum2 = main.querySelector("#otc-2"),
-  codeNum3 = main.querySelector("#otc-3"),
-  codeNum4 = main.querySelector("#otc-4"),
+  downloadInputCode = main.querySelectorAll(".downloadcode"),
   downloadWindow = main.querySelector(".downloadWindow"),
   FilesArea = main.querySelector(".files-area"),
   uploadBtn = main.querySelector("#uploadButton");
@@ -224,7 +221,7 @@ function uploadFile(file) {
       fileTotal < 1024
         ? (fileSize = 1 + fileTotal + " KB")
         : (fileSize =
-            (snapshot.bytesTransferred / (1024 * 1024)).toFixed(2) + " MB");
+          (snapshot.bytesTransferred / (1024 * 1024)).toFixed(2) + " MB");
       let progressHTML = `<li class="row">
                             <img src="./assests/clock.svg">
                             <div class="content">
@@ -332,29 +329,27 @@ receiveBtn.addEventListener("click", () => {
   downloadWindow.style.display = "block";
   sendBtn.style.display = "none";
   if (receiveBtnText.innerText == "Download") {
-    if (
-      codeNum1.value == "" ||
-      codeNum2.value == "" ||
-      codeNum3.value == "" ||
-      codeNum4.value == ""
-    ) {
-      document.querySelector("#alert-text").textContent =
-        "Please Enter Valid Code";
+    if (downloadInputCode[3].disabled && downloadInputCode[3].value == "") {
+      document.querySelector("#alert-text").textContent = "Please Enter Valid Code";
       document.querySelector(".alert").classList.toggle("alertnow");
       wait(3000).then(() => {
         document.querySelector(".alert").classList.toggle("alertnow");
       });
     } else {
-      var myCodeReceive =
-        codeNum1.value + codeNum2.value + codeNum3.value + codeNum4.value;
+      var myCodeReceive = 0;
+      downloadInputCode.forEach((input, index1) => {
+        myCodeReceive = (myCodeReceive * 10) + parseInt(input.value);
+      });
+
       db.ref("space/" + myCodeReceive).once("value", (snap) => {
-        var data = snap.val();
-        if (data) {
-          FilesArea.innerHTML = "";
-          var fileName = data["fileName"];
-          var fileUrl = data["fileUrl"];
-          fileUrl.forEach((file, i) => {
-            var uploadedHTML = `<li class="row">
+        if (snap.exists()) {
+          var data = snap.val();
+          if (data) {
+            FilesArea.innerHTML = "";
+            var fileName = data["fileName"];
+            var fileUrl = data["fileUrl"];
+            fileUrl.forEach((file, i) => {
+              var uploadedHTML = `<li class="row">
                             <div class="content upload">
                             <img src="./assests/file-g.svg">
                               <div class="details">
@@ -363,9 +358,17 @@ receiveBtn.addEventListener("click", () => {
                             </div>
                             <img class="downloadFileIcon" src="./assests/download-g.svg" onclick=downloadFile('${file}','${fileName[i]}')>
                             </li>`;
-            FilesArea.insertAdjacentHTML("afterbegin", uploadedHTML);
+              FilesArea.insertAdjacentHTML("afterbegin", uploadedHTML);
+            });
+          }
+        } else {
+          document.querySelector("#alert-text").textContent = "Wrong Download Code 👻";
+          document.querySelector(".alert").classList.toggle("alertnow");
+          wait(3000).then(() => {
+            document.querySelector(".alert").classList.toggle("alertnow");
           });
         }
+
       });
     }
   } else {
@@ -373,57 +376,50 @@ receiveBtn.addEventListener("click", () => {
   }
 });
 
-let in1 = document.getElementById("otc-1"),
-  ins = document.querySelectorAll('input[type="number"]'),
-  splitNumber = function (e) {
-    let data = e.data || e.target.value;
-    if (!data) return;
-    if (data.length === 1) return;
-    popuNext(e.target, data);
-  },
-  popuNext = function (el, data) {
-    el.value = data[0];
-    data = data.substring(1);
-    if (el.nextElementSibling && data.length) {
-      popuNext(el.nextElementSibling, data);
-    }
-  };
+downloadInputCode.forEach((input, index1) => {
+  input.addEventListener("keyup", (e) => {
+    // This code gets the current input element and stores it in the currentInput variable
+    // the next sibling element of the current input element and stores it in the nextInput variable
+    // the previous sibling element of the current input element and stores it in the prevInput variable
+    const currentInput = input,
+      nextInput = input.nextElementSibling,
+      prevInput = input.previousElementSibling;
 
-ins.forEach(function (input) {
-  input.addEventListener("keyup", function (e) {
-    if (
-      e.keyCode === 16 ||
-      e.keyCode == 9 ||
-      e.keyCode == 224 ||
-      e.keyCode == 18 ||
-      e.keyCode == 17
-    ) {
+    // if the value has more than one character then clear it
+    if (currentInput.value.length > 1) {
+      currentInput.value = "";
       return;
     }
-    if (
-      (e.keyCode === 8 || e.keyCode === 37) &&
-      this.previousElementSibling &&
-      this.previousElementSibling.tagName === "INPUT"
-    ) {
-      this.previousElementSibling.select();
-    } else if (e.keyCode !== 8 && this.nextElementSibling) {
-      this.nextElementSibling.select();
+    // if the next input is disabled and the current value is not empty
+    //  enable the next input and focus on it
+    if (nextInput && nextInput.hasAttribute("disabled") && currentInput.value !== "") {
+      nextInput.removeAttribute("disabled");
+      nextInput.focus();
     }
-    if (e.target.value.length > 1) {
-      splitNumber(e);
+
+    // if the backspace key is pressed
+    if (e.key === "Backspace") {
+      // iterate over all inputs again
+      downloadInputCode.forEach((input, index2) => {
+        // if the index1 of the current input is less than or equal to the index2 of the input in the outer loop
+        // and the previous element exists, set the disabled attribute on the input and focus on the previous element
+        if (index1 <= index2 && prevInput) {
+          input.setAttribute("disabled", true);
+          input.value = "";
+          prevInput.focus();
+        }
+      });
     }
-  });
-  input.addEventListener("focus", function (e) {
-    if (this === in1) return;
-    if (in1.value == "") {
-      in1.focus();
+    //if the fourth input( which index number is 3) is not empty and has not disable attribute then
+    //add active class if not then remove the active class.
+    if (!downloadInputCode[3].disabled && downloadInputCode[3].value !== "") {
+
+      return;
     }
-    if (this.previousElementSibling.value == "") {
-      this.previousElementSibling.focus();
-    }
+
   });
 });
-in1.addEventListener("input", splitNumber);
+
 
 function downloadFile(url, filename) {
   var xhr = new XMLHttpRequest();
@@ -438,13 +434,3 @@ function downloadFile(url, filename) {
   xhr.open("GET", url);
   xhr.send();
 }
-/*var fileName = 'Test.mp4'
-		var tempEl = document.createElement("a");
-    	document.body.appendChild(tempEl);
-    	tempEl.style = "display: none";
-        url = window.URL.createObjectURL(blob);
-        tempEl.href = url;
-        tempEl.download = fileName;
-        tempEl.click();
-		window.URL.revokeObjectURL(url);
-	} */
