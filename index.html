@@ -43,10 +43,14 @@
             <h3>Share Your <span>Private Code</span> to Other to view and download uploaded files <span>Securely</span>
             </h3>
             <div class="input-field">
-                <input id="digitCode1" type="number" readonly onKeyDown="if(this.value.length==1 && event.keyCode!=8) return false;"/>
-                <input id="digitCode2" type="number" readonly onKeyDown="if(this.value.length==1 && event.keyCode!=8) return false;"/>
-                <input id="digitCode3" type="number" readonly onKeyDown="if(this.value.length==1 && event.keyCode!=8) return false;"/>
-                <input id="digitCode4" type="number" readonly onKeyDown="if(this.value.length==1 && event.keyCode!=8) return false;"/>                         
+                <input id="digitCode1" type="number" readonly
+                    onKeyDown="if(this.value.length==1 && event.keyCode!=8) return false;" />
+                <input id="digitCode2" type="number" readonly
+                    onKeyDown="if(this.value.length==1 && event.keyCode!=8) return false;" />
+                <input id="digitCode3" type="number" readonly
+                    onKeyDown="if(this.value.length==1 && event.keyCode!=8) return false;" />
+                <input id="digitCode4" type="number" readonly
+                    onKeyDown="if(this.value.length==1 && event.keyCode!=8) return false;" />
             </div>
         </div>
         <div class="downloadWindow">
@@ -54,11 +58,15 @@
                 <form class="otc" action="#">
                     <fieldset>
                         <h3>Enter 4 Digit Code</h3>
-                        <div class="input-field">                           
-                            <input class="downloadcode" type="number" onKeyDown="if(this.value.length==1 && event.keyCode!=8) return false;"/>
-                            <input class="downloadcode" type="number" disabled onKeyDown="if(this.value.length==1 && event.keyCode!=8) return false;"/>
-                            <input class="downloadcode" type="number" disabled onKeyDown="if(this.value.length==1 && event.keyCode!=8) return false;"/>
-                            <input class="downloadcode" type="number" disabled onKeyDown="if(this.value.length==1 && event.keyCode!=8) return false;"/>                         
+                        <div class="input-field">
+                            <input class="downloadcode focusme" autofocus type="number"
+                                onKeyDown="if(this.value.length==1 && event.keyCode!=8) return false;" />
+                            <input class="downloadcode" type="number" disabled
+                                onKeyDown="if(this.value.length==1 && event.keyCode!=8) return false;" />
+                            <input class="downloadcode" type="number" disabled
+                                onKeyDown="if(this.value.length==1 && event.keyCode!=8) return false;" />
+                            <input class="downloadcode" type="number" disabled
+                                onKeyDown="if(this.value.length==1 && event.keyCode!=8) return false;" />
                         </div>
                     </fieldset>
                 </form>

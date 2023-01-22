@@ -11,7 +11,26 @@
 </head>
 
 <body>
+    <div class="alert danger-alert">
+        <p id="alert-text"></p>
+    </div>
+    <div class="signin">
+        <img src="./assests/favicon.svg">
+        <div class="floating-label-group">
+            <input type="text" autocomplete="off" autofocus required id="userid" maxlength="12">
+            <label class="floating-label">username</label>
+            <span class="at"><img src="./assests/at-sign.svg"></span>
+        </div>
+        <div class="floating-label-group">
+            <input type="password" autocomplete="off" required id="passwd">
+            <label class="floating-label">password</label>
+            <span class="at"><img src="./assests/lock.svg"></span>
+
+        </div>
+        <button onclick="login()">LOGIN</button>
+    </div>
     <div class="main">
+
         <div class="sidePanel">
             <div class="sidePanelHeader">
                 <img src="./assests/favicon.svg">
@@ -21,21 +40,44 @@
             </div>
         </div>
         <div class="mainPanel">
-            <!-- <div class="welcome">
+            <div class="welcome">
                 <img src="./assests/favicon.svg">
-            </div> -->
-
-            <div class="box">
-                <img src="./assests/file-text.svg">
-                <h2>Image File</h2>
-                <span>200MB</span>
-                <img class="downloadFileIcon" src="./assests/download-g.svg" onclick="downloadFile('as')">
+            </div>
+            <div class="mainListFiles">
 
             </div>
 
         </div>
+        <div class="menuPanel">
+            <div class="menus">
+                <div class="option addnew">
+                    <img src="./assests/file-plus.svg">
+                    <span>Add Files</span>
+                </div>
+                <div class="option removefile">
+                    <img src="./assests/file-minus.svg">
+                    <span>Remove Files</span>
+                </div>
+                <div class="option keep">
+                    <img src="./assests/clock-w.svg">
+                    <span>Keep +2 days</span>
+                </div>
+                <div class="option recode">
+                    <img src="./assests/edit.svg">
+                    <span>Change Code</span>
+                </div>
+                <div class="option delete">
+                    <img src="./assests/trash-2.svg">
+                    <span>Delete</span>
+                </div>
+            </div>
+            <div class="content">
+                <h3 class="fileValidity">Auto-Delete on <span>00-00-0000</span></h3>
+                <h3 class="downloadCount">Download Count <span>0</span></h3>
+            </div>
+        </div>
     </div>
-    
+
     <script src="https://www.gstatic.com/firebasejs/8.4.2/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.4.2/firebase-database.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.4.2/firebase-storage.js"></script>

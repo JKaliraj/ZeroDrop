@@ -167,14 +167,15 @@ uploadBtn.addEventListener("change", function (e) {
     if (!fileNameList.includes(file[i].name)) {
       uploadFile(file[i]);
     }
-   
   }
 });
 
 var ready = 0;
 var myCode;
+let fileSize;
 const fileNameList = [];
 const fileUrl = [];
+const fileSizeList = [];
 function uploadFile(file) {
   dropArea.classList.remove("active");
   dragText.textContent = "Drag & Drop to Upload File";
@@ -197,11 +198,12 @@ function uploadFile(file) {
           }
         });
       var cdate = new Date();
-      var date = cdate.getDate();
-      var mon = cdate.getMonth() + 1;
       var year = cdate.getFullYear();
       var hour = cdate.getHours();
       var min = cdate.getMinutes();
+      var mon = ("0" + (cdate.getMonth() + 1)).slice(-2);
+      var date = ("0" + cdate.getDate()).slice(-2);
+
       var today = date + "-" + mon + "-" + year;
       var ctime = hour + ":" + min;
       setTimeout(() => {
@@ -209,6 +211,7 @@ function uploadFile(file) {
           code: myCode,
           date: today,
           time: ctime,
+          count: 0,
         });
         digitCode1.value = myCode.toString()[0];
         digitCode2.value = myCode.toString()[1];
@@ -224,11 +227,10 @@ function uploadFile(file) {
         (snapshot.bytesTransferred / snapshot.totalBytes) * 100
       );
       let fileTotal = Math.floor(snapshot.totalBytes / 1000);
-      let fileSize;
       fileTotal < 1024
         ? (fileSize = 1 + fileTotal + " KB")
         : (fileSize =
-          (snapshot.bytesTransferred / (1024 * 1024)).toFixed(2) + " MB");
+            (snapshot.bytesTransferred / (1024 * 1024)).toFixed(2) + " MB");
       let progressHTML = `<li class="row">
                             <img src="./assests/clock.svg">
                             <div class="content">
@@ -267,8 +269,10 @@ function uploadFile(file) {
         var fname = file.name;
         fileUrl.push(downloadURL);
         fileNameList.push(fname);
+        fileSizeList.push(fileSize);
         db.ref("space/" + myCode + "/").update({
           fileUrl: fileUrl,
+          fileSize: fileSizeList,
           fileName: fileNameList,
         });
       });
@@ -307,7 +311,7 @@ dropArea.addEventListener("drop", (event) => {
   dragText.textContent = "Drag & Drop to Upload File";
   if (dragfile) {
     for (var i = 0; i < dragfilelength; i++) {
-      if (dragfile[i].type !== '' && !fileNameList.includes(dragfile[i].name)) {
+      if (dragfile[i].type !== "" && !fileNameList.includes(dragfile[i].name)) {
         uploadFile(dragfile[i]);
       }
     }
@@ -329,25 +333,29 @@ sendBtn.addEventListener("click", () => {
     sendBtnText.innerText = "Upload";
   }
 });
+var breakitcount = 0;
 receiveBtn.addEventListener("click", () => {
   isAnyBtnClicked = true;
   welcome.style.display = "none";
   receiveDiv.style.display = "block";
   downloadWindow.style.display = "block";
   sendBtn.style.display = "none";
+  if (receiveBtnText.innerText == "Receive") {
+    main.querySelector(".focusme").focus();
+  }
   if (receiveBtnText.innerText == "Download") {
     if (downloadInputCode[3].disabled && downloadInputCode[3].value == "") {
-      document.querySelector("#alert-text").textContent = "Please Enter Valid Code";
+      document.querySelector("#alert-text").textContent =
+        "Please Enter Valid Code";
       document.querySelector(".alert").classList.toggle("alertnow");
       wait(3000).then(() => {
         document.querySelector(".alert").classList.toggle("alertnow");
       });
     } else {
       var myCodeReceive = 0;
-      downloadInputCode.forEach((input, index1) => {
-        myCodeReceive = (myCodeReceive * 10) + parseInt(input.value);
+      downloadInputCode.forEach((input) => {
+        myCodeReceive = myCodeReceive * 10 + parseInt(input.value);
       });
-
       db.ref("space/" + myCodeReceive).once("value", (snap) => {
         if (snap.exists()) {
           var data = snap.val();
@@ -363,19 +371,25 @@ receiveBtn.addEventListener("click", () => {
                                 <span class="name">${fileName[i]}</span>
                               </div>
                             </div>
-                            <img class="downloadFileIcon" src="./assests/download-g.svg" onclick=downloadFile('${file}','${fileName[i]}')>
+                            <img class="downloadFileIcon" src="./assests/download-g.svg" onclick="downloadFile('${file}','${fileName[i]}')">
                             </li>`;
               FilesArea.insertAdjacentHTML("afterbegin", uploadedHTML);
             });
+            breakitcount += 1;
+            if (breakitcount == 1) {
+              db.ref("space/" + myCodeReceive + "/").update({
+                count: firebase.database.ServerValue.increment(1),
+              });
+            }
           }
         } else {
-          document.querySelector("#alert-text").textContent = "Wrong Download Code 👻";
+          document.querySelector("#alert-text").textContent =
+            "Wrong Download Code 👻";
           document.querySelector(".alert").classList.toggle("alertnow");
           wait(3000).then(() => {
             document.querySelector(".alert").classList.toggle("alertnow");
           });
         }
-
       });
     }
   } else {
@@ -399,7 +413,11 @@ downloadInputCode.forEach((input, index1) => {
     }
     // if the next input is disabled and the current value is not empty
     //  enable the next input and focus on it
-    if (nextInput && nextInput.hasAttribute("disabled") && currentInput.value !== "") {
+    if (
+      nextInput &&
+      nextInput.hasAttribute("disabled") &&
+      currentInput.value !== ""
+    ) {
       nextInput.removeAttribute("disabled");
       nextInput.focus();
     }
@@ -420,13 +438,10 @@ downloadInputCode.forEach((input, index1) => {
     //if the fourth input( which index number is 3) is not empty and has not disable attribute then
     //add active class if not then remove the active class.
     if (!downloadInputCode[3].disabled && downloadInputCode[3].value !== "") {
-
       return;
     }
-
   });
 });
-
 
 function downloadFile(url, filename) {
   var xhr = new XMLHttpRequest();

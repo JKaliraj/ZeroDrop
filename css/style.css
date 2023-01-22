@@ -182,10 +182,13 @@ body.dark {
     gap: 20px;
     transition: all 300ms ease-in-out;
 }
-.sendBtn > img , .receiveBtn > img{
+
+.sendBtn>img,
+.receiveBtn>img {
     width: 22px;
     height: 22px;
 }
+
 .btn {
     border-radius: 15px;
     padding: 15px;
@@ -410,6 +413,7 @@ body.dark {
 .receive {
     display: block;
 }
+
 .otc {
     position: relative;
     width: 320px;
@@ -431,14 +435,17 @@ body.dark {
     display: flex;
     align-items: center;
 }
+
 .input-field {
     flex-direction: row;
     column-gap: 10px;
-  }
-  .input-field input[disabled] {
-        background-color: #fff;
-  }
-  .input-field input[type="number"] {
+}
+
+.input-field input[disabled] {
+    background-color: #fff;
+}
+
+.input-field input[type="number"] {
     height: 42px;
     width: 40px;
     border-radius: 6px;
@@ -447,14 +454,16 @@ body.dark {
     text-align: center;
     border: 1px solid #ddd;
     color: var(--dark);
-  }
-  .input-field input:focus {
+}
+
+.input-field input:focus {
     box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
-  }
-  .input-field input::-webkit-inner-spin-button,
-  .input-field input::-webkit-outer-spin-button {
+}
+
+.input-field input::-webkit-inner-spin-button,
+.input-field input::-webkit-outer-spin-button {
     display: none;
-  }
+}
 
 /* upload area */
 .files.dark .row {
@@ -620,7 +629,7 @@ section .row .material-symbols-rounded {
     display: none;
     width: 350px;
     max-height: 450px;
-    overflow-y:scroll;
+    overflow-y: scroll;
     background: var(--light);
     box-shadow: -2px -2px 6px rgba(255, 255, 255, .6),
         -2px -2px 4px rgba(255, 255, 255, .4),
@@ -629,9 +638,11 @@ section .row .material-symbols-rounded {
     padding: 20px 10px;
     transition: all 300ms ease-out;
 }
-.downloadWindow::-webkit-scrollbar{
+
+.downloadWindow::-webkit-scrollbar {
     width: 0px;
 }
+
 .downloadWindow a {
     text-decoration: none;
 }
@@ -666,12 +677,15 @@ section .row .material-symbols-rounded {
 .files-area .row {
     transition: all 300ms ease-out;
 }
-.files-area .row img{
+
+.files-area .row img {
     width: 22px;
 }
-.files-area .row .downloadFileIcon{ 
+
+.files-area .row .downloadFileIcon {
     cursor: pointer;
 }
+
 .files-area .row .content {
     width: 100%;
     display: flex;
@@ -692,28 +706,35 @@ section .row .material-symbols-rounded {
 
 /* Responsive */
 @media screen and (max-device-width: 480px) {
-    .drag-area .icon , header , p{
+
+    .drag-area .icon,
+    header,
+    p {
         display: none !important;
     }
-    .myTheme.dark .browseBtn{
+
+    .myTheme.dark .browseBtn {
         color: #e8e8e8;
         background-color: var(--dark);
         box-shadow: 0px 0px 20px #222222,
             0px 0px 20px #2e2e2e;
     }
-    .browseBtn{
+
+    .browseBtn {
         margin-top: 20px;
         box-shadow: -2px -2px 6px rgba(255, 255, 255, .6),
-        -2px -2px 4px rgba(255, 255, 255, .4),
-        2px 2px 2px rgba(255, 255, 255, .05),
-        2px 2px 4px rgba(0, 0, 0, .1);
+            -2px -2px 4px rgba(255, 255, 255, .4),
+            2px 2px 2px rgba(255, 255, 255, .05),
+            2px 2px 4px rgba(0, 0, 0, .1);
         padding: 15px;
         border-radius: 20px;
         gap: 10px;
     }
+
     .drag-area {
         border: none;
     }
+
     .drag-area.dark {
         border: none;
     }
