@@ -121,10 +121,6 @@ keepBtn.addEventListener("click", () => {
 });
 
 deleteBtn.addEventListener("click", () => {
-  document.querySelector("#alert-text").textContent = "Deleting Folder 📂";
-  document.querySelector(".alert").classList.toggle("alertnow");
-  wait(3000).then(() => {
-    document.querySelector(".alert").classList.toggle("alertnow");
     var currentActive = main.querySelector(".active");
     db.ref("space/" + currentActive.dataset.code).once("value", (snap) => {
       var data = snap.val();
@@ -142,7 +138,7 @@ deleteBtn.addEventListener("click", () => {
     welcome.style.display = "flex";
     menuPanel.style.right = "-250px";
   });
-});
+
 
 reCode.addEventListener("click", () => {});
 
