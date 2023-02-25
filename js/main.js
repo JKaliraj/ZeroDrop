@@ -23,7 +23,8 @@ const main = document.querySelector("#main"),
   downloadInputCode = main.querySelectorAll(".downloadcode"),
   downloadWindow = main.querySelector(".downloadWindow"),
   FilesArea = main.querySelector(".files-area"),
-  uploadBtn = main.querySelector("#uploadButton");
+  uploadBtn = main.querySelector("#uploadButton"),
+  githubIcon = main.querySelector(".githubIcon");
 
 // Theme
 var theme = localStorage.getItem("theme");
@@ -41,6 +42,8 @@ if (theme) {
     ele.classList.add("dark");
   });
   currentThemeIcon.src = "./assests/sun.svg";
+  githubIcon.src = "./assests/github.svg";
+
 }
 themeSwitch.addEventListener("click", () => {
   var themeIcon = currentThemeIcon.src;
@@ -59,9 +62,12 @@ themeSwitch.addEventListener("click", () => {
     localStorage.removeItem("theme");
     currentThemeIcon.src = "./assests/moon.svg";
     homeBtn.src = "./assests/arrow-left.svg";
+    githubIcon.src = "./assests/github-b.svg";
+
   } else {
     localStorage.setItem("theme", "dark");
     currentThemeIcon.src = "./assests/sun.svg";
+    githubIcon.src = "./assests/github.svg";
     homeBtn.src = "./assests/arrow-left-w.svg";
   }
 });
@@ -71,7 +77,7 @@ function wait(ms) {
 }
 
 // Splash Screen
-wait(1500).then(() => {
+wait(1000).then(() => {
   main.style.display = "flex";
   splash.style.display = "none";
 });
