@@ -23,8 +23,8 @@ const main = document.querySelector("#main"),
   downloadInputCode = main.querySelectorAll(".downloadcode"),
   downloadWindow = main.querySelector(".downloadWindow"),
   FilesArea = main.querySelector(".files-area"),
-  uploadBtn = main.querySelector("#uploadButton"),
-  githubIcon = main.querySelector(".githubIcon");
+  uploadBtn = main.querySelector("#uploadButton");
+  //var githubIcon = main.querySelector(".githubIcon");
 
 // Theme
 var theme = localStorage.getItem("theme");
@@ -42,7 +42,7 @@ if (theme) {
     ele.classList.add("dark");
   });
   currentThemeIcon.src = "./assests/sun.svg";
-  githubIcon.src = "./assests/github.svg";
+  // githubIcon.src = "./assests/github.svg";
 
 }
 themeSwitch.addEventListener("click", () => {
@@ -62,12 +62,12 @@ themeSwitch.addEventListener("click", () => {
     localStorage.removeItem("theme");
     currentThemeIcon.src = "./assests/moon.svg";
     homeBtn.src = "./assests/arrow-left.svg";
-    githubIcon.src = "./assests/github-b.svg";
+    // githubIcon.src = "./assests/github-b.svg";
 
   } else {
     localStorage.setItem("theme", "dark");
     currentThemeIcon.src = "./assests/sun.svg";
-    githubIcon.src = "./assests/github.svg";
+    // githubIcon.src = "./assests/github.svg";
     homeBtn.src = "./assests/arrow-left-w.svg";
   }
 });
