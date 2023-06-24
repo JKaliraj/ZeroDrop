@@ -20,7 +20,19 @@ Go to the project directory
 ```bash
   cd ZeroDrop/
 ```
-Replace Your own Firebase Config in js/fire.js \
+Replace Your own [Firebase](https://console.firebase.google.com/) config in js/fire.js 
+```bash
+  const firebaseConfig = {
+    apiKey: "YOUR_API",
+    authDomain: "YOUR_DOMAIN",
+    projectId: "PROJECT_ID",
+    databaseURL: "YOUR_DATABASE_URL",
+    storageBucket: "STORAGE_BUCKET",
+    messagingSenderId: "MSG_ID",
+    appId: "APP_ID",
+    measurementId: "MEASUREMENT_ID"
+};
+```
 Run the index.html
 
 ```bash
